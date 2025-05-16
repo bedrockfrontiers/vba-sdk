@@ -1,5 +1,7 @@
 # Debouncer (v1.3)
 
+[Documentation](/docs/Debouncer)
+
 ## Overview
 
 The **Debouncer** module is a highly specialized utility designed to manage and control the frequency of event-driven function executions within VBA environments. Debouncing is a critical technique for ensuring system stability and performance when handling noisy, rapid, or repetitive triggers, such as user inputs, hardware signals, or timer-based events.
