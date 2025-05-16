@@ -1,6 +1,6 @@
 Attribute VB_Name = "Debouncer"
 ' ***************************************************************************
-' Bedrock Team - Debouncer
+' Debouncer
 ' ***************************************************************************
 ' This module implements a high-performance debounce and interval timer system
 ' using pure VBA. It replaces external dependencies (Scripting.Dictionary,
@@ -10,24 +10,12 @@ Attribute VB_Name = "Debouncer"
 ' Key Features:
 ' - Array-based storage of timers, sorted by Key for fast binary lookup.
 ' - Amortized resizing (ReDim Preserve in powers of 2) for smooth scalability.
-' - Native VBA Timer call—no DLL imports, no COM overhead.
+' - Native VBA Timer callâ€”no DLL imports, no COM overhead.
 ' - Single-flag "Done" logic for one-shot timers, preventing duplicate triggers.
 '
 ' ---------------------------------------------------------------------------
 ' Team: Bedrock
 ' Last Update: 15/05/2025
-' ---------------------------------------------------------------------------
-' References/Sources:
-' - VBA Timer Function Usage (StackOverflow):
-'     https://stackoverflow.com/questions/12370439/how-to-use-timer-in-vba
-' - Binary Search in VBA (GitHub Gist):
-'     https://gist.github.com/username/vba-binary-search-array-example
-' - ReDim Preserve Best Practices (StackOverflow):
-'     https://stackoverflow.com/questions/4477086/vba-redim-preserve-performance
-' - Debounce Function Concept (MDN Web Docs):
-'     https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#debouncing_and_throttling
-' - Rubberduck VBA (GitHub):
-'     https://github.com/rubberduck-vba/Rubberduck
 ' ---------------------------------------------------------------------------
 
 Option Explicit
