@@ -1,4 +1,4 @@
-# Debouncer
+# Debouncer (v1.3)
 
 ## Overview
 
