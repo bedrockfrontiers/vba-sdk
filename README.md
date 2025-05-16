@@ -29,6 +29,8 @@ VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to si
 2. Open your VBA host (Excel, Access, Word, etc.).
 3. Import the desired `.bas` or `.cls` files from the [`modules/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/modules) folder via **File → Import File…**.
 
+## Repo Map
+
 * [`arch/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/arch): Ready-made projects with modules organized for specific objectives, such as debounce, schedulers, etc. Ideal for reference or as a basis for new projects.
 * [`docs/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/docs): Project documentation in Markdown format, with explanations and technical specifications.
 * [`examples/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/examples): Example spreadsheets, documents, presentations, etc. demonstrating the use of modules in practice.
