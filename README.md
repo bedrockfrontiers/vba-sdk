@@ -1,12 +1,15 @@
-# vba-sdk
-
-VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to simplify your workflow and boost productivity.
+<div align="center">
+  <img width="250" height="250" src="/brandlogo.png" />
+  <p>
+    VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to simplify your workflow and boost productivity.
+  </p>
+</div>
 
 ## Table of Contents
 
 * [Features](#features)
-* [Contributing](#contributing)
 * [Repo Map](#repo-map)
+* [Contributing](#contributing)
 * [License](#license)
 
 ## Features
