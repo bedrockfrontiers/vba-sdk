@@ -18,7 +18,7 @@ VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to si
 ## Repo Map
 
 * [`arch/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/arch): Ready-made projects with modules organized for specific objectives, such as debounce, schedulers, etc. Ideal for reference or as a basis for new projects.
-* [`docs/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/docs): Project documentation in Markdown format, with explanations and technical specifications.
+* [`docs/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/docs):Modules documentation with explanations and technical specifications.
 * [`examples/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/examples): Example spreadsheets, documents, presentations, etc. demonstrating the use of modules in practice.
 * [`modules/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/modules): Core modules in `.bas` and `.cls`, ready to import and use.
 * [`tests/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/tests):Test scripts to validate the functioning of the modules.
