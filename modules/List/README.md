@@ -47,6 +47,7 @@ At its core, the List uses a private dynamic array (`Items() As Variant`) along 
   * `Concat` (merge two lists)
   * `Sort` (in-place QuickSort)
   * `Clone` (deep copy)
+  * and more.
 
 * **QuickSort Implementation**
   Provides an in-place, recursive QuickSort with configurable ascending/descending order, achieving average O(n log n) sort performance.
