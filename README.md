@@ -1,9 +1,10 @@
 <div align="center">
   <img width="250" height="250" src="/brandlogo.png" />
-  <p>
-    VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to simplify your workflow and boost productivity.
-  </p>
+  
+  ## VBA SDK
 </div>
+
+VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to simplify your workflow and boost productivity.
 
 ## Table of Contents
 
