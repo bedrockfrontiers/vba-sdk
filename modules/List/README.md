@@ -1,4 +1,4 @@
-# List (v1.1)
+# List (v1.2)
 
 [Documentation](/docs/List)
 
