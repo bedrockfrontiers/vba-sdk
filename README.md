@@ -5,8 +5,8 @@ VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to si
 ## Table of Contents
 
 * [Features](#features)
-* [Installation](#installation)
 * [Contributing](#contributing)
+* [Repo Map](#repo-map)
 * [License](#license)
 
 ## Features
@@ -14,20 +14,6 @@ VBA-SDK is a collection of optimized and ready-to-use VBA modules designed to si
 * Modular collection of VBA code that you can pick and choose.
 * Ready-to-use modules covering common tasks.
 * Organized structure for easy navigation.
-
-## Installation
-
-> [!TIP]
-> This step is only useful if you want to have and use all the modules in this SDK.
-
-1. Clone the repository:
-
-   ```sh
-   git clone https://github.com/bedrockfrontiers/vba-sdk.git
-   ```
-   or Install the Repository.
-2. Open your VBA host (Excel, Access, Word, etc.).
-3. Import the desired `.bas` or `.cls` files from the [`modules/`](https://github.com/bedrockfrontiers/vba-sdk/tree/main/modules) folder via **File → Import File…**.
 
 ## Repo Map
 
