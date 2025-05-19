@@ -1,4 +1,4 @@
-# List Module Documentation
+# List Documentation
 
 A high-performance, dynamic array–backed collection class for VBA, delivering flexible list operations (Add, InsertAt, RemoveAt, Sort, Shuffle, Map, Filter, Reduce, and more) with automatic capacity management and zero external dependencies.
 
