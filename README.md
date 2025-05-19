@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/brandlogo.png" />
+  <img width="200" height="100" src="/brandlogo.png" />
   
   ## VBA SDK
 </div>
