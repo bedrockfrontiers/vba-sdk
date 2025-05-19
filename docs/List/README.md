@@ -1,6 +1,6 @@
-# List Documentation
+# List Module Documentation
 
-A dynamic, array-backed collection class for VBA, delivering flexible list operations (add, insert, remove, sort, shuffle, and more) with automatic capacity management and no external dependencies.
+A high-performance, dynamic array–backed collection class for VBA, delivering flexible list operations (Add, InsertAt, RemoveAt, Sort, Shuffle, Map, Filter, Reduce, and more) with automatic capacity management and zero external dependencies.
 
 ## Download
 
@@ -16,41 +16,44 @@ A dynamic, array-backed collection class for VBA, delivering flexible list opera
 
   * [Properties](#properties)
   * [Methods](#methods)
+  * [Callback Classes](#callback-classes)
 * [Usage Examples](#usage-examples)
 * [Implementation Details](#implementation-details)
 * [Performance and Scalability](#performance-and-scalability)
 
 ## Features
 
-* **Pure VBA**: No DLL imports or external libraries.
-* **Automatic Resizing**: Grows capacity (×2 up to a threshold, then ×1.5) to minimize reallocations.
-* **Rich API**: Add, Insert, Remove, Clear, Trim, Shuffle, Reverse, Sort, Concat, Clone, and more.
-* **Variant Storage**: Holds any data type or object reference, handling `Set` for objects.
-* **Snapshot Arrays**: `Items` and `ToArray` return a zero-based VBA array of current elements.
-* **QuickSort**: In-place, configurable ascending/descending sort.
+* **Pure VBA**: No external libraries or DLL imports.
+* **Automatic Resizing**: Capacity doubles (×2) up to 1 024 elements, then grows by 1.5× to minimize reallocations.
+* **Rich API**: Add, AddRange, InsertAt, RemoveAt, Remove, Pop, Shift, Clear, Trim, Shuffle, Reverse, Join, Concat, Clone.
+* **Functional & Callback Methods**: ForEach, Map, Filter, Reduce, Every, Some, FindAll, Slice.
+* **Variant & Object Storage**: Holds any data type or object reference, handling `Set` where appropriate.
+* **Indexed Access**: `Item` and `At` with bounds checking.
+* **Binary Search**: Fast lookup in sorted lists via `BinarySearch`.
 
 ## Requirements
 
-* Microsoft Office VBA (Excel, Word, Access, etc.)
-* VBA project with `Option Explicit` enabled.
+* Microsoft Office VBA host (Excel, Word, Access, etc.)
+* VBA project with `Option Explicit` enabled
 
 ## Installation
 
 1. Open the VBA editor (**Alt + F11**).
 2. In the **Project Explorer**, right-click your target project and choose **Import File…**.
-3. Select `List.cls` and confirm.
-4. Save your project.
+3. Select **`List.cls`** and confirm.
+4. Save your VBA project.
 
 ## API Reference
 
 ### Properties
 
-| Name                                     | Type             | Description                                                |
-| ---------------------------------------- | ---------------- | ---------------------------------------------------------- |
-| `Length`                                 | Long             | Number of elements currently in the list.                  |
-| `Capacity`                               | Long             | Allocated storage slots (≥ Length).                        |
-| `Item(Index)`<br/>(Property Get/Let/Set) | Variant / Object | Get or set element at zero-based `Index` (bounds-checked). |
-| `Items`<br/>(Property Get/Let)           | Variant Array    | Snapshot of all elements as a zero-based VBA array.        |
+| Name          | Type             | Description                                                   |
+| ------------- | ---------------- | ------------------------------------------------------------- |
+| `Length`      | Long             | Number of elements currently in the list.                     |
+| `Capacity`    | Long             | Allocated storage slots (always ≥ `Length`).                  |
+| `At(Index)`   | Variant / Object | Returns element at zero-based `Index` (with bounds checking). |
+| `Item(Index)` | Variant / Object | Get or set element at zero-based `Index` (bounds-checked).    |
+| `Items`       | Variant Array    | Snapshot of all elements as a zero-based VBA array (get/set). |
 
 ### Methods
 
@@ -88,6 +91,32 @@ Removes the element at `Index`, shifting subsequent items left.
 lst.RemoveAt 0  ' removes first element
 ```
 
+#### Remove(Value As Variant) As Boolean
+
+Removes the first occurrence of `Value`; returns `True` if removed.
+
+```vb
+If lst.Remove("Banana") Then Debug.Print "Removed!"
+```
+
+#### Pop() As Variant
+
+Removes and returns the last element. Error if list is empty.
+
+```vb
+Dim lastItem As Variant
+lastItem = lst.Pop
+```
+
+#### Shift() As Variant
+
+Removes and returns the first element. Error if list is empty.
+
+```vb
+Dim firstItem As Variant
+firstItem = lst.Shift
+```
+
 #### Clear()
 
 Empties the list and resets capacity to default (8).
@@ -98,7 +127,7 @@ lst.Clear
 
 #### Trim()
 
-Reduces capacity to match current length, reclaiming unused space.
+Reduces capacity to match current `Length`, reclaiming unused space.
 
 ```vb
 lst.Trim
@@ -139,20 +168,20 @@ arr = lst.ToArray()
 
 #### IndexOf(Value As Variant) As Long
 
-Returns first index of `Value`, or –1 if not found (uses reference equality for objects).
+Returns the first index of `Value`, or –1 if not found (uses reference equality for objects).
 
 ```vb
 Dim idx As Long
-idx = lst.IndexOf "Hello"
+idx = lst.IndexOf("Hello")
 ```
 
 #### LastIndexOf(Value As Variant) As Long
 
-Returns last index of `Value`, or –1 if not found.
+Returns the last index of `Value`, or –1 if not found.
 
 ```vb
 Dim lastIdx As Long
-lastIdx = lst.LastIndexOf 42
+lastIdx = lst.LastIndexOf(42)
 ```
 
 #### Contains(Value As Variant) As Boolean
@@ -163,23 +192,22 @@ Returns `True` if `Value` exists in the list.
 If lst.Contains("Hello") Then …
 ```
 
-#### Concat(other As List) As List
+#### BinarySearch(Value As Variant, Optional ascending As Boolean = True) As Long
 
-Returns a new `List` combining current elements followed by all elements of `other`.
+Performs binary search on a sorted list; returns index or –1 if not found.
 
 ```vb
-Dim lst2 As New List
-lst2.AddRange Array("A", "B")
-Dim merged As List
-Set merged = lst.Concat(lst2)
+Dim pos As Long
+pos = lst.BinarySearch(5, True)
 ```
 
-#### Sort(Optional ascending As Boolean = True)
+#### Concat(other As List) As List
 
-Sorts elements in-place using QuickSort. `ascending = False` for descending order.
+Returns a new `List` combining current elements followed by those of `other`.
 
 ```vb
-lst.Sort False  ' descending
+Dim merged As List
+Set merged = lst.Concat(anotherList)
 ```
 
 #### Clone() As List
@@ -191,65 +219,129 @@ Dim copy As List
 Set copy = lst.Clone
 ```
 
-## Usage Examples
+### Callback Classes
 
-> [!TIP]
-> You can do `list(<index>)` instead of `list.Item(<index>)`.
+The following methods accept a **callback object**—a class instance exposing an `Invoke` method. Use these to encapsulate logic and promote reuse.
+
+| Method    | Signature                                                     | Description                                       |
+| --------- | ------------------------------------------------------------- | ------------------------------------------------- |
+| `ForEach` | `Sub Invoke(item As Variant)`                                 | Executes once per element (no return value).      |
+| `Map`     | `Function Invoke(item As Variant) As Variant`                 | Transforms each item; returns new list of values. |
+| `Filter`  | `Function Invoke(item As Variant) As Boolean`                 | Includes item if return is `True`.                |
+| `Reduce`  | `Function Invoke(acc As Variant, item As Variant) As Variant` | Aggregates values into a single result.           |
+| `Every`   | `Function Invoke(item As Variant) As Boolean`                 | Returns `True` only if all calls return `True`.   |
+| `Some`    | `Function Invoke(item As Variant) As Boolean`                 | Returns `True` if any call returns `True`.        |
+| `FindAll` | Alias for `Filter`                                            | —                                                 |
+| `Slice`   | *No callback; returns sublist.*                               | —                                                 |
+
+#### How to Implement a Callback Class
+
+1. **Add a new Class Module**: e.g. `clsPrinter`, `clsSquarer`, etc.
+2. **Define the `Invoke` method** matching the required signature.
+3. **Instantiate** and pass to list method.
 
 ```vb
-Sub Example_ListOperations()
-    Dim fruits As New List
-    fruits.AddRange Array("Apple", "Banana", "Cherry")
-    fruits.InsertAt 1, "Blueberry"
-    Debug.Print "Count: " & fruits.Length
-    Debug.Print "Second item: " & fruits.Item(1)
-    
-    fruits.RemoveAt 2
-    fruits.Sort
-    Debug.Print fruits.Join(" | ")
-    
-    fruits.Shuffle
-    Debug.Print "Shuffled: " & fruits.Join(", ")
+'-- clsPrinter.cls --
+Option Explicit
+
+Public Sub Invoke(item As Variant)
+    Debug.Print item
 End Sub
 ```
 
 ```vb
-Sub Example_Advanced()
+'-- clsSquarer.cls --
+Option Explicit
+
+Public Function Invoke(item As Variant) As Variant
+    Invoke = item * item
+End Function
+```
+
+#### Tips & Best Practices
+
+* **Single Responsibility**: Each callback class should do one job.
+* **Reusable**: Define generic callbacks (e.g. `clsEqualityChecker`) for common tasks.
+* **Naming**: Prefix classes with `cls` and methods clearly (`Invoke`).
+* **Error Handling**: Validate input inside `Invoke` and raise meaningful errors.
+
+## Usage Examples
+
+```vb
+Sub Example_Functional()
     Dim numbers As New List
-    numbers.AddRange Array(5, 3, 8, 1, 9)
-    numbers.Sort False   ' descending
-    Debug.Print "Max: " & numbers.Item(0)
-    
-    Dim copy As List
-    Set copy = numbers.Clone
-    copy.Clear
-    Debug.Print "Original still has " & numbers.Length & " items"
+    numbers.AddRange Array(2, 3, 4, 5)
+
+    ' Print each element
+    numbers.ForEach New clsPrinter
+
+    ' Square each element
+    Dim squares As List
+    Set squares = numbers.Map(New clsSquarer)
+    Debug.Print "Squares: " & squares.Join(", ")
+
+    ' Filter even numbers
+    Dim evens As List
+    Set evens = numbers.Filter(New clsEvenChecker)
+    Debug.Print "Evens: " & evens.Join(", ")
+
+    ' Sum all numbers
+    Dim total As Variant
+    total = numbers.Reduce(New clsAdder, 0)
+    Debug.Print "Sum: " & total
 End Sub
 ```
 
 ## Implementation Details
 
 ```vb
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  ' True
+END
+Attribute VB_Name = "List"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+
+Option Explicit
+
 Private Type TList
     Items()   As Variant
     Count     As Long
     Capacity  As Long
 End Type
 
-Const DEFAULT_CAP As Long = 8
+Private Const DEFAULT_CAP As Long = 8
+Private Const TOLERANCE    As Long = 16
 Private data As TList
-```
 
-* **EnsureCapacity** doubles capacity (or ×1.5 above threshold) when needed.
-* **QuickSort** recursively sorts between low/high indices.
-* **Variant vs. Object** storage handled via `IsObject` and appropriate `Set`.
+Private Sub Class_Initialize()
+    data.Capacity = DEFAULT_CAP
+    data.Count = 0
+    ReDim data.Items(0 To data.Capacity - 1)
+End Sub
+
+Private Sub EnsureCapacity(Optional ByVal additional As Long = 1)
+    Dim required As Long: required = data.Count + additional
+    If required <= data.Capacity Then Exit Sub
+    If data.Capacity < 1024 Then
+        data.Capacity = data.Capacity * 2
+    Else
+        data.Capacity = CLng(data.Capacity * 1.5)
+    End If
+    If data.Capacity < required Then data.Capacity = required
+    ReDim Preserve data.Items(0 To data.Capacity - 1)
+End Sub
+```
 
 ## Performance and Scalability
 
 * **Add**: Amortized O(1)
-* **Insert/Remove**: O(n) (shifts elements)
-* **Lookup**: O(1) by index
-* **Sort**: Average O(n log n), worst O(n²) in degenerate pivot cases
-* **Memory**: Grows in powers of two until threshold, then 1.5×, balancing allocations and usage
+* **InsertAt / RemoveAt**: O(n)
+* **Index Access**: O(1)
+* **Sort**: Average O(n log n), worst O(n²)
+* **BinarySearch**: O(log n)
 
-For questions or contributions, please contact **Team Bedrock** or open an issue in your project repository.
+This `List` class provides a robust foundation for dynamic collections in VBA, balancing speed, memory efficiency, and a rich feature set.
